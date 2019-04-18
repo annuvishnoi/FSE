@@ -1,4 +1,4 @@
-package com.fsd.pm;
+package com.fse.pm;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -13,4 +13,5 @@ public class FsePmAppApplicationTests {
 	public void contextLoads() {
 	}
 
+	
 }
