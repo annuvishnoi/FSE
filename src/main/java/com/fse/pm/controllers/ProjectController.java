@@ -64,11 +64,11 @@ public class ProjectController {
 	public Project addProject(@RequestBody Project project){
 		
 		logger.info("start addProject method>>");
-		if(!this.projectService.addProject(project)) {
-			logger.info("Cannot add new Project!!!");
-			throw new BadRequestException("Cannot add new Project!!!");
+		if(project == null) {
+			logger.info("Project can not be null!!!");
+			throw new BadRequestException("Project can not be null!!!");
 		}
-		
+		this.projectService.addProject(project);
 		if(project.getSelectedEmployee() != null) {
 			User selectedEmployee = project.getSelectedEmployee();
 			if(selectedEmployee.getUserId() != null) {
@@ -82,11 +82,11 @@ public class ProjectController {
 	@PutMapping("/projects")
 	public Project editProject(@RequestBody Project project){
 		logger.info("start editProject method>>");
-		if(!this.projectService.updateProject(project)) {
-			logger.info("Cannot update new Project!!!");
-			throw new BadRequestException("Cannot update new Project!!!");
+		if(project == null) {
+			logger.info("Project can not be null!!!");
+			throw new BadRequestException("Project can not be null!!!");
 		}
-		
+		this.projectService.updateProject(project);
 		if(project.getSelectedEmployee() != null) {
 			User selectedEmployee = project.getSelectedEmployee();
 			if(selectedEmployee.getUserId() != null) {
@@ -100,11 +100,11 @@ public class ProjectController {
 	@DeleteMapping("/projects/{projectId}")
 	public boolean deleteProject(@PathVariable Long projectId){
 		logger.info("start deleteProject method>>");
-		if(!this.projectService.deleteProject(projectId)) {
-			logger.info("Cannot delete Project with id!!!" + projectId);
-			throw new BadRequestException("Cannot delete Project with id!!!" + projectId);
-
+		if(projectId == null) {
+			logger.info("Project Id can not be null!!");
+			throw new BadRequestException("Project Id can not be null!!");
 		}
+		this.projectService.deleteProject(projectId);
 		logger.info("start deleteProject method>>");
 		return true;
 	

@@ -25,14 +25,13 @@ public class ProjectDAOImpl implements ProjectDAO{
 	private EntityManager entityManager;
 
 	@Override
-	public boolean addProject(Project project) {
+	public void addProject(Project project) {
 		Session session= this.entityManager.unwrap(Session.class);
 		session.saveOrUpdate(project);
-		return true;
 	}
 
 	@Override
-	public boolean updateProject(Project project) {
+	public void updateProject(Project project) {
 		if(project == null) {
 			logger.info("Project object is null");
 			throw new BadRequestException("Project object is null");
@@ -44,11 +43,10 @@ public class ProjectDAOImpl implements ProjectDAO{
 		}
 		Session session= this.entityManager.unwrap(Session.class);
 		session.merge(project);
-		return true;
 	}
 
 	@Override
-	public boolean deleteProject(long projectId) {
+	public void deleteProject(long projectId) {
 		Project project = getProjectByProjectId(projectId);
 		if(project == null) {
 			logger.info("Project id not found - " + projectId);
@@ -56,7 +54,6 @@ public class ProjectDAOImpl implements ProjectDAO{
 		}
 		Session session= this.entityManager.unwrap(Session.class);
 		session.delete(project);
-		return true;
 	}
 
 	@Override
