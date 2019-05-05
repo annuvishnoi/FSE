@@ -68,11 +68,11 @@ public class TaskController {
 	public Task addTask(@RequestBody Task task){
 		
 		logger.info("start addTask method>>");
-		if(!this.taskService.addTask(task)) {
-			logger.info("Cannot add new Task!!!");
-			throw new BadRequestException("Cannot add new Task!!!");
+		if(task == null) {
+			logger.info("Task can not be null!!!");
+			throw new BadRequestException("Task can not be null!!!");
 		}
-		
+		this.taskService.addTask(task);
 		
 		User selectedEmployee = task.getSelectedEmployee();
 		if(selectedEmployee.getUserId() != null) {
@@ -104,10 +104,11 @@ public class TaskController {
 	@PutMapping("/tasks")
 	public Task editTask(@RequestBody Task task){
 		logger.info("start editTask method>>");
-		if(!this.taskService.updateTask(task)) {
-			logger.info("Cannot update new Task!!!");
-			throw new BadRequestException("Cannot update new Task!!!");
+		if(task == null) {
+			logger.info("Task can not be null!!!");
+			throw new BadRequestException("Task can not be null!!!");
 		}
+		this.taskService.updateTask(task);
 		logger.info("end editTask method>>");
 		
 		return task;
@@ -115,11 +116,12 @@ public class TaskController {
 	@DeleteMapping("/tasks/{taskId}")
 	public boolean deleteTask(@PathVariable Long taskId){
 		logger.info("start deleteTask method>>");
-		if(!this.taskService.deleteTask(taskId)) {
+		if(taskId == null) {
 			logger.info("Cannot delete Task with id!!!" + taskId);
 			throw new BadRequestException("Cannot delete Task with id!!!" + taskId);
 
 		}
+		this.taskService.deleteTask(taskId);
 		logger.info("start deleteTask method>>");
 		return true;
 	

@@ -16,18 +16,18 @@ public class TaskServiceImpl implements TaskService{
 	TaskDAO taskDAO;
 	
 	@Override
-	public boolean addTask(Task task) {
-		return taskDAO.addTask(task);
+	public void addTask(Task task) {
+		taskDAO.addTask(task);
 	}
 
 	@Override
-	public boolean updateTask(Task task) {
-		return taskDAO.updateTask(task);
+	public void updateTask(Task task) {
+		taskDAO.updateTask(task);
 	}
 
 	@Override
-	public boolean deleteTask(long taskId) {
-		return taskDAO.deleteTask(taskId);
+	public void deleteTask(long taskId) {
+		taskDAO.deleteTask(taskId);
 	}
 
 	@Override

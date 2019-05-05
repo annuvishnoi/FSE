@@ -25,7 +25,7 @@ public class TaskDAOImpl implements TaskDAO{
 	private EntityManager entityManager;
 
 	@Override
-	public boolean addTask(Task task) {
+	public void addTask(Task task) {
 		if(task == null) {
 			logger.info("Task object is null");
 			throw new BadRequestException("Task object is null");
@@ -33,11 +33,10 @@ public class TaskDAOImpl implements TaskDAO{
 		task.setProject(task.getSelectedProject());
 		Session session= this.entityManager.unwrap(Session.class);
 		session.saveOrUpdate(task);
-		return true;
 	}
 
 	@Override
-	public boolean updateTask(Task task) {
+	public void updateTask(Task task) {
 		if(task == null) {
 			logger.info("Task object is null");
 			throw new BadRequestException("Task object is null");
@@ -51,11 +50,10 @@ public class TaskDAOImpl implements TaskDAO{
 		task.setProject(task.getSelectedProject());
 		Session session= this.entityManager.unwrap(Session.class);
 		session.merge(task);
-		return false;
 	}
 
 	@Override
-	public boolean deleteTask(long taskId) {
+	public void deleteTask(long taskId) {
 		Task task = getTaskByTaskId(taskId);
 		if(task == null) {
 			logger.info("Task id not found - " + taskId);
@@ -63,7 +61,6 @@ public class TaskDAOImpl implements TaskDAO{
 		}
 		Session session= this.entityManager.unwrap(Session.class);
 		session.delete(task);
-		return true;
 	}
 
 	@Override
