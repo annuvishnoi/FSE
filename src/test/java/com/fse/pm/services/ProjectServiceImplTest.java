@@ -83,9 +83,9 @@ public class ProjectServiceImplTest {
 		project.setProject("Test Project");
 		project.setProjectId(Long.valueOf(20));
 
-		given(projectDAO.getProjectByProjectId(Long.valueOf(350044))).willReturn(project);
+		given(projectDAO.getProjectByProjectId(project.getProjectId())).willReturn(project);
 		
-		Project actualObject = projectServiceImpl.getProjectByProjectId(Long.valueOf(350044));
+		Project actualObject = projectServiceImpl.getProjectByProjectId(project.getProjectId());
 		assertNotNull(actualObject);
 		
 		assertTrue(actualObject.getProject().equals("Test Project"));

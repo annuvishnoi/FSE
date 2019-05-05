@@ -164,4 +164,5 @@ public class UserServiceImplTest {
 		verify(userDAO, times(1)).updateTaskId(user.getUserId(), user.getTaskId());
 		assertEquals(count, expected);
 	}
+
 }
