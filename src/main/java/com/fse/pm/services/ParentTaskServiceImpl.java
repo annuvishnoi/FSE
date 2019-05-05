@@ -15,8 +15,8 @@ public class ParentTaskServiceImpl implements ParentTaskService{
 	ParentTaskDAO parentTaskDAO;
 	
 	@Override
-	public boolean addParentTask(ParentTask parentTask) {
-		return parentTaskDAO.addParentTask(parentTask);
+	public void addParentTask(ParentTask parentTask) {
+		parentTaskDAO.addParentTask(parentTask);
 	}
 
 	@Override

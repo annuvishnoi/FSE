@@ -56,12 +56,15 @@ public class ParentTaskController {
 	public ParentTask addParentTask(@RequestBody ParentTask parentTask){
 		
 		logger.info("start addParentTask method>>");
-		if(!this.parentTaskService.addParentTask(parentTask)) {
-			logger.info("Cannot add new ParentTask!!!");
-			throw new BadRequestException("Cannot add new ParentTask!!!");
+		if(parentTask == null) {
+			logger.info("ParentTask can not be null!!!");
+			throw new BadRequestException("ParentTask can not be null!!!");
 		}
+		this.parentTaskService.addParentTask(parentTask);
 		logger.info("end addParentTask method>>");
 		return parentTask;
 	}
+
 }
+
 

@@ -10,7 +10,6 @@ import org.hibernate.Session;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-
 import org.springframework.stereotype.Repository;
 
 import com.fse.pm.entity.ParentTask;
@@ -24,10 +23,9 @@ public class ParentTaskDAOImpl implements ParentTaskDAO{
 	private EntityManager entityManager;
 
 	@Override
-	public boolean addParentTask(ParentTask parentTask) {
+	public void addParentTask(ParentTask parentTask) {
 		Session session= this.entityManager.unwrap(Session.class);
 		session.saveOrUpdate(parentTask);
-		return true;
 	}
 	@Override
 	public List<ParentTask> getAllParentTasks() {
