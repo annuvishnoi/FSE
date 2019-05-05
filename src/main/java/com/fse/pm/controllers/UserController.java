@@ -1,8 +1,9 @@
 package com.fse.pm.controllers;
 
-import java.util.ArrayList;
 import java.util.List;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -15,44 +16,79 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.fse.pm.entity.User;
+import com.fse.pm.exceptions.BadRequestException;
+import com.fse.pm.exceptions.NotFoundException;
+import com.fse.pm.services.UserService;
 
 @RestController
 @RequestMapping("/api")
 @CrossOrigin(origins="http://localhost:4200")
 public class UserController {
 	@Autowired
-	//BookService bookService;
-	
+	UserService userService;
+	private final Logger logger = LoggerFactory.getLogger(this.getClass());
 
 	@GetMapping("/users")
 	public List<User> getUsers(){
-		
-		return new ArrayList<User>();
+		logger.info("start getUsers method>>");
+		List<User> users = this.userService.getAllUsers();
+		if(users==null || users.isEmpty()) {
+			logger.info("User Records not Found!!!");
+			throw new NotFoundException("User Records not Found!!!");
+		}
+		logger.info("end getUsers method>>");
+		return users;
 	}
 	
 	@GetMapping("/users/{userId}")
 	public User getUser(@PathVariable Long userId){
-				
-		return new User();
+		logger.info("start getUser method>>" + userId);
+		User user = this.userService.getUserByUserId(userId);
+		if(user==null) {
+			logger.info("User id not found - " + userId);
+			
+			throw new NotFoundException("User id not found - " + userId);
+		}
+		logger.info("end getUser method>>");
+		return user;
 	}
-	
-	
 	
 	@PostMapping("/users")
 	public User addUser(@RequestBody User user){
 		
-		
+		logger.info("start addUser method>>");
+		if(user == null) {
+			logger.info("Cannot add new User!!!");
+			throw new BadRequestException("User Can not be null!!!");
+		}
+		this.userService.addUser(user);
+		logger.info("end addUser method>>");
 		return user;
 	}
 	
 	@PutMapping("/users")
 	public User editUser(@RequestBody User user){
+		logger.info("start editUser method>>");
+		if(user == null) {
+			logger.info("Cannot update User!!!");
+			throw new BadRequestException("User Can not be null!!!");
+		}
+		this.userService.updateUser(user);
+		logger.info("end editUser method>>");
 		
 		return user;
 	}
 	@DeleteMapping("/users/{userId}")
 	public boolean deleteUser(@PathVariable Long userId){
-
+		logger.info("start deleteUser method>>");
+		if(userId == null) {
+			logger.info("Cannot delete User!!!");
+			throw new BadRequestException("User Id Can not be null!!!");
+		}
+		this.userService.deleteUser(userId);
+		logger.info("start deleteUser method>>");
 		return true;
+	
 	}
 }
+
