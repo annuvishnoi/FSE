@@ -45,6 +45,9 @@ public class ProjectDAOImplTest {
 		
 		session.saveOrUpdate(project);
 		verify(session, times(1)).saveOrUpdate(project);
+		
+		
+		projectDAOImpl.addProject(project);
 	}
 	
 	@Test
@@ -59,6 +62,9 @@ public class ProjectDAOImplTest {
 		
 		session.merge(project);
 		verify(session, times(1)).merge(project);
+		
+		
+		projectDAOImpl.updateProject(project);
 	}
 	
 	@Test
@@ -73,6 +79,8 @@ public class ProjectDAOImplTest {
 		
 		session.delete(project);
 		verify(session, times(1)).delete(project);
+		
+		projectDAOImpl.deleteProject(project.getProjectId());
 	}
 	@Test
 	public void getAllProjects() throws Exception {

@@ -46,20 +46,25 @@ public class TaskDAOImplTest {
 		
 		session.saveOrUpdate(task);
 		verify(session, times(1)).saveOrUpdate(task);
+		
+		taskDAOImpl.addTask(task);		
 	}
 	
 	@Test
-	public void editTask() {
+	public void updateTask() {
 		Task task = new Task();
 		task.setTask("Test Task");
 		task.setTaskId(Long.valueOf(20));
 
 		when(entityManager.unwrap(Session.class)).thenReturn(session);
+		assertNotNull(session);
 		
 		when(session.get(Task.class, task.getTaskId())).thenReturn(task);
 		
 		session.merge(task);
 		verify(session, times(1)).merge(task);
+		
+		taskDAOImpl.updateTask(task);		
 	}
 	
 	@Test
@@ -72,11 +77,14 @@ public class TaskDAOImplTest {
 		tasks.add(task);
 
 		when(entityManager.unwrap(Session.class)).thenReturn(session);
+		assertNotNull(session);
 		
 		when(session.get(Task.class, task.getTaskId())).thenReturn(task);
 		
 		session.delete(task);
 		verify(session, times(1)).delete(task);
+		
+		taskDAOImpl.deleteTask(task.getTaskId());		
 	}
 	@Test
 	public void getAllTasks() throws Exception {
@@ -122,5 +130,32 @@ public class TaskDAOImplTest {
 		
 		assertTrue(actualObject.getTask().equals("Test Task"));
 
+	}
+	@Test
+	public void updateTaskStatus() {
+		Task task = new Task();
+		task.setTask("Test Task");
+		task.setTaskId(Long.valueOf(20));
+
+		List<Task> tasks = new ArrayList<Task>();
+		tasks.add(task);
+		
+
+		when(entityManager.unwrap(Session.class)).thenReturn(session);
+		assertNotNull(session);
+		
+		
+		when(session.createQuery("update Task set status= :status where taskId=" + task.getTaskId())).thenReturn(query);
+		assertNotNull(query);
+		
+		when(query.setParameter("status", 0)).thenReturn(query);
+		assertNotNull(query);
+		
+		when(query.executeUpdate()).thenReturn(1);
+		
+		int actualCount = taskDAOImpl.updateTaskStatus(task.getTaskId());
+		assertNotNull(actualCount);
+		
+		assertTrue(actualCount == 1);
 	}
 }

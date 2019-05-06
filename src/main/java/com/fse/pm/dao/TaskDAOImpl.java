@@ -40,16 +40,18 @@ public class TaskDAOImpl implements TaskDAO{
 		if(task == null) {
 			logger.info("Task object is null");
 			throw new BadRequestException("Task object is null");
+		} else {
+			Task taskAvailable = getTaskByTaskId(task.getTaskId());
+			if(taskAvailable == null) {
+				logger.info("Task id not found - " + task.getTaskId());
+				throw new NotFoundException("Task id not found - " + task.getTaskId());
+			
+			}
+			task.setProject(task.getSelectedProject());
+			Session session= this.entityManager.unwrap(Session.class);
+			session.merge(task);
 		}
-		Task taskAvailable = getTaskByTaskId(task.getTaskId());
-		if(taskAvailable == null) {
-			logger.info("Task id not found - " + task.getTaskId());
-			throw new NotFoundException("Task id not found - " + task.getTaskId());
 		
-		}
-		task.setProject(task.getSelectedProject());
-		Session session= this.entityManager.unwrap(Session.class);
-		session.merge(task);
 	}
 
 	@Override

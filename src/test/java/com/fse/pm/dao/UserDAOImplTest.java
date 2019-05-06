@@ -1,7 +1,9 @@
 package com.fse.pm.dao;
 
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
+import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
@@ -18,6 +20,7 @@ import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.springframework.test.context.junit4.SpringRunner;
+import static org.mockito.Mockito.doNothing;
 
 import com.fse.pm.entity.User;
 
@@ -167,4 +170,85 @@ public class UserDAOImplTest {
 		
 		assertTrue(actualObject.getFirstName().equals("First_Check"));
 	}
+	
+	@Test
+	public void updateProjectId() {
+		User user = new User();
+		user.setFirstName("First_Check");
+		user.setLastName("Last_Check");
+		user.setEmployeeId(Long.valueOf(350044));
+		user.setUserId(Long.valueOf(2));
+		user.setProjectId(Long.valueOf(600));
+		user.setTaskId(Long.valueOf(2));
+		
+		when(entityManager.unwrap(Session.class)).thenReturn(session);
+		when(session.createQuery("update User set projectId= null where projectId=" + user.getProjectId())).thenReturn(query);
+		assertNotNull(query);
+		
+	//	when(session.createQuery("update User set projectId= null where projectId=" + user.getProjectId())).thenReturn(query);
+		when(query.executeUpdate()).thenReturn(1);
+		
+		when(session.createQuery("update User set projectId = :projectId" +
+				" where userId = :userId")).thenReturn(query);
+		
+		when(query.setParameter("projectId", user.getProjectId())).thenReturn(query);
+		when(query.setParameter("userId", user.getUserId())).thenReturn(query);
+		
+		int count = 1;
+		when(query.executeUpdate()).thenReturn(count);
+		
+				
+		int actualCount = userDAOImpl.updateProjectId(user.getUserId(), user.getProjectId());
+		assertEquals(count, actualCount);
+		
+	}
+	
+	@Test
+	public void updateTaskId() {
+		User user = new User();
+		user.setFirstName("First_Check");
+		user.setLastName("Last_Check");
+		user.setEmployeeId(Long.valueOf(350044));
+		user.setUserId(Long.valueOf(2));
+		user.setProjectId(Long.valueOf(600));
+		user.setTaskId(Long.valueOf(2));
+		
+		when(entityManager.unwrap(Session.class)).thenReturn(session);
+		when(session.createQuery("update User set taskId= null where taskId=" + user.getTaskId())).thenReturn(query);
+		assertNotNull(query);
+		
+		//when(session.createQuery("update User set taskId = :taskId where userId = :userId")).thenReturn(query);
+		when(query.executeUpdate()).thenReturn(1);
+		
+		when(session.createQuery("update User set taskId = :taskId where userId = :userId")).thenReturn(query);
+		
+		when(query.setParameter("taskId", user.getTaskId())).thenReturn(query);
+		when(query.setParameter("userId", user.getUserId())).thenReturn(query);
+		
+		int count = 1;
+		when(query.executeUpdate()).thenReturn(count);
+		
+				
+		int actualCount = userDAOImpl.updateTaskId(user.getUserId(), user.getTaskId());
+		assertEquals(count, actualCount);
+		
+	}
+	
+	/*@Test
+	public void updateTaskId() {
+		User user = new User();
+		user.setFirstName("First_Check");
+		user.setLastName("Last_Check");
+		user.setEmployeeId(Long.valueOf(350044));
+		user.setUserId(Long.valueOf(2));
+		user.setProjectId(Long.valueOf(600));
+		user.setTaskId(Long.valueOf(2));
+		
+		int count = 1;
+		given(userDAO.updateTaskId(user.getUserId(), user.getTaskId())).willReturn(count);
+		int expected = userServiceImpl.updateTaskId(user.getUserId(), user.getTaskId());
+		
+		verify(userDAO, times(1)).updateTaskId(user.getUserId(), user.getTaskId());
+		assertEquals(count, expected);
+	}*/
 }
