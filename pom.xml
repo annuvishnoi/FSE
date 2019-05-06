@@ -13,12 +13,29 @@
 	<version>1</version>
 	<name>fse-pm-app</name>
 	<description>Demo project for Spring Boot</description>
+	<packaging>war</packaging>
 
 	<properties>
+		<start-class>com.fse.pm.FsePmAppApplication</start-class>
 		<java.version>1.8</java.version>
 	</properties>
 
 	<dependencies>
+		<dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-web</artifactId>
+              <exclusions>
+                <exclusion>
+                    <groupId>org.springframework.boot</groupId>
+                    <artifactId>spring-boot-starter-tomcat</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+        <dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-tomcat</artifactId>
+			<scope>provided</scope>
+		</dependency>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-data-jpa</artifactId>
@@ -43,22 +60,25 @@
 			<artifactId>spring-boot-starter-test</artifactId>
 			<scope>test</scope>
 		</dependency>
-		<!-- <dependency>
+		<dependency>
 		    <groupId>com.jayway.restassured</groupId>
 		    <artifactId>rest-assured</artifactId>
 		    <version>2.9.0</version>
 		    <scope>test</scope>
-		</dependency> -->
+		</dependency>
 	</dependencies>
 
 	<build>
+		<finalName>fse-pm-app</finalName>
 		<plugins>
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
 			</plugin>
 		</plugins>
+	
+		
 	</build>
 
-	<packaging>war</packaging>
+	
 </project>

@@ -47,13 +47,13 @@ public class Task {
 	/*@Column(name="parent_id")
 	private Long parentId;*/
 	
-	@ManyToOne(fetch = FetchType.EAGER, cascade=CascadeType.ALL)
+	@ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name="parent_id", nullable=true)
 	private ParentTask selectedParentTask; 
 	
 	
 	//@JsonIgnore
-	@ManyToOne(fetch = FetchType.EAGER, cascade=CascadeType.ALL)
+	@ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name="project_id", nullable=false)
 	private Project project;
 
