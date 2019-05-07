@@ -75,7 +75,7 @@ public class UserController {
 		}
 		
 		List<User> users = this.userService.getUserByEmployeeId(user.getEmployeeId());
-		if(users != null && (users != null || !users.isEmpty())) {
+		if(users != null && users.size() > 0) {
 			logger.info("Duplicate Employee Id!!");
 			throw new BadRequestException("Duplicate Employee Id!!");
 		}
