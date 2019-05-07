@@ -118,6 +118,12 @@ public class TaskController {
 			logger.info("Task can not be null!!!");
 			throw new BadRequestException("Task can not be null!!!");
 		}
+		if(task != null && task.getSelectedParentTask() != null) {
+			
+			if(task.getSelectedParentTask().getParentId() == null) {
+				task.setSelectedParentTask(null);
+			}
+		}
 		this.taskService.updateTask(task);
 		logger.info("end editTask method>>");
 		
