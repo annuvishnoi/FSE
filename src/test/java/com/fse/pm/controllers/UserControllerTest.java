@@ -129,6 +129,9 @@ public class UserControllerTest {
 		user.setUserId(Long.valueOf(2));
 		doNothing().when(userService).addUser(user);
 		
+		
+		given(userService.getUserByEmployeeId(user.getEmployeeId())).willReturn(null);
+		
 		mockMvc.perform( MockMvcRequestBuilders
 			      .post("/api/users")
 			      .content(asJsonString(user))
