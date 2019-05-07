@@ -58,4 +58,13 @@ public class UserServiceImpl implements UserService{
 		
 		return userDAO.getUserByTaskId(taskId);
 	}
+	@Override
+	public List<User> getAllManagers() {
+		return userDAO.getAllManagers();
+	}
+	@Override
+	public List<User> getUserByEmployeeId(long employeeId) {
+		return userDAO.getUserByEmployeeId(employeeId);
+	}
 }
+

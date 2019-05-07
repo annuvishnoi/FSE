@@ -78,6 +78,25 @@ public class User {
 	public void setTaskId(Long taskId) {
 		this.taskId = taskId;
 	}
-	  
+	@Override
+	public boolean equals(Object obj) {
+		User user = (User) obj;
+		if(user != null && user.getEmployeeId() != null) {
+			
+			if(user.getEmployeeId().equals(this.employeeId)) {
+				return true;
+			} else {
+				return false;
+			}
+		}
+		return false;
+	} 
+	
+	
+	@Override
+	public int hashCode() {
+		// TODO Auto-generated method stub
+		return this.employeeId.hashCode();
+	}
 	
 }

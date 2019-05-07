@@ -42,7 +42,7 @@ public class Project {
 	@Column(name="priority")
 	private Integer priority;
 	
-	@OneToMany(mappedBy="project", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+	@OneToMany(mappedBy="project", fetch = FetchType.EAGER, cascade = CascadeType.REMOVE)
 	private Set<Task> tasks = new HashSet<Task>();
 
 	@Transient

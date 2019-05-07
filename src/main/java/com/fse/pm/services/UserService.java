@@ -15,4 +15,6 @@ public interface UserService {
 	public User getUserByUserId(long userId);
 	public User getUserByProjectId(Long projectId);
 	public User getUserByTaskId(Long taskId);
+	public List<User> getAllManagers();
+	public List<User> getUserByEmployeeId(long employeeId);
 }

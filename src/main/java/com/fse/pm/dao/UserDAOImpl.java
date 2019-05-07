@@ -1,6 +1,8 @@
 package com.fse.pm.dao;
 
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import javax.persistence.EntityManager;
 import javax.transaction.Transactional;
@@ -55,6 +57,24 @@ public class UserDAOImpl implements UserDAO{
 	public List<User> getAllUsers() {
 		Session session= this.entityManager.unwrap(Session.class);
 		Query<User> query= session.createQuery("from User",User.class); 
+		List<User> users = query.getResultList();
+		Set<User> set = new HashSet<User>();
+		if(users != null) {
+			for (User user : users) {
+				set.add(user);
+			}
+			users.clear();
+			users.addAll(set);
+		}
+		
+		return users;
+
+	}
+	
+	@Override
+	public List<User> getAllManagers() {
+		Session session= this.entityManager.unwrap(Session.class);
+		Query<User> query= session.createQuery("from User where taskId=null",User.class); 
 		List<User> users=query.getResultList();
 		return users;
 
@@ -101,7 +121,7 @@ public class UserDAOImpl implements UserDAO{
 	
 	@Override
 	public User getUserByProjectId(Long projectId) {
-		String hql = "from User where projectId=" + projectId;
+		String hql = "from User where taskId=null and projectId=" + projectId;
 		Session session= this.entityManager.unwrap(Session.class);
 		Query query = session.createQuery(hql);
 		/*query.setLong("projectId", projectId);
@@ -116,6 +136,14 @@ public class UserDAOImpl implements UserDAO{
 		Query query = session.createQuery(hql);
 		User user = (User) query.uniqueResult();
 		return user;
+	
+	}
+	public List<User> getUserByEmployeeId(long employeeId) {
+		String hql = "from User where employeeId=" + employeeId;
+		Session session= this.entityManager.unwrap(Session.class);
+		Query query = session.createQuery(hql);
+		List<User> users=query.getResultList();
+		return users;
 	}
 }
 

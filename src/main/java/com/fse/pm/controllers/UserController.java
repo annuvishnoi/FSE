@@ -40,6 +40,18 @@ public class UserController {
 		return users;
 	}
 	
+	@GetMapping("/users/managers")
+	public List<User> getManagers(){
+		logger.info("start getManagers method>>");
+		List<User> users = this.userService.getAllManagers();
+		if(users==null || users.isEmpty()) {
+			logger.info("User Records not Found!!!");
+			throw new NotFoundException("User Records not Found!!!");
+		}
+		logger.info("end getManagers method>>");
+		return users;
+	}
+	
 	@GetMapping("/users/{userId}")
 	public User getUser(@PathVariable Long userId){
 		logger.info("start getUser method>>" + userId);
@@ -60,6 +72,12 @@ public class UserController {
 		if(user == null) {
 			logger.info("Cannot add new User!!!");
 			throw new BadRequestException("User Can not be null!!!");
+		}
+		
+		List<User> users = this.userService.getUserByEmployeeId(user.getEmployeeId());
+		if(users != null || !users.isEmpty()) {
+			logger.info("Duplicate Employee Id!!");
+			throw new BadRequestException("Duplicate Employee Id!!");
 		}
 		this.userService.addUser(user);
 		logger.info("end addUser method>>");

@@ -82,7 +82,11 @@ public class TaskController {
 		
 		User selectedEmployee = task.getSelectedEmployee();
 		if(selectedEmployee.getUserId() != null) {
-			userService.updateTaskId(selectedEmployee.getUserId(), task.getTaskId());
+			selectedEmployee.setUserId(null);
+			selectedEmployee.setProjectId(task.getProjectId());
+			selectedEmployee.setTaskId(task.getTaskId());
+			//userService.updateTaskId(selectedEmployee.getUserId(), task.getTaskId());
+			userService.addUser(selectedEmployee);
 		}
 		logger.info("end addTask method>>");
 		return task;

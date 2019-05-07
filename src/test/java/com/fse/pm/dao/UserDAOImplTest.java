@@ -110,6 +110,32 @@ public class UserDAOImplTest {
 	}
 	
 	@Test
+	public void getAllManagers() throws Exception {
+		User user = new User();
+		user.setFirstName("First_Check");
+		user.setLastName("Last_Check");
+		user.setEmployeeId(Long.valueOf(350044));
+		List<User> users = new ArrayList<User>();
+		users.add(user);
+		
+
+		when(entityManager.unwrap(Session.class)).thenReturn(session);
+		assertNotNull(session);
+		
+		
+		when(session.createQuery("from User",User.class)).thenReturn(query);
+		assertNotNull(query);
+		
+		when(query.getResultList()).thenReturn(users);
+		
+		List<User> listActual = userDAOImpl.getAllUsers();
+		assertNotNull(listActual);
+		
+		assertTrue(listActual.size() == 1);
+
+	}
+	
+	@Test
 	public void getUserByUserId() throws Exception {
 		User user = new User();
 		user.setFirstName("First_Check");
@@ -138,7 +164,7 @@ public class UserDAOImplTest {
 		
 		when(entityManager.unwrap(Session.class)).thenReturn(session);
 		
-		when(session.createQuery("from User where projectId=" + user.getProjectId())).thenReturn(query);
+		when(session.createQuery("from User where taskId=null and projectId=" + user.getProjectId())).thenReturn(query);
 		assertNotNull(query);
 		
 		when(query.uniqueResult()).thenReturn(user);
