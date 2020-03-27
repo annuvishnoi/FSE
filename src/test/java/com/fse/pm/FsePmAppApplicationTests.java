@@ -11,6 +11,7 @@ public class FsePmAppApplicationTests {
 
 	@Test
 	public void contextLoads() {
+		System.out.println("Hello");
 	}
 
 	
