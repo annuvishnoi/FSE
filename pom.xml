@@ -10,7 +10,8 @@
 	</parent>
 	<groupId>com.fse.pm</groupId>
 	<artifactId>fse-pm-app</artifactId>
-	<version>1</version>
+	
+	<version>3</version>
 	<name>fse-pm-app</name>
 	<description>Demo project for Spring Boot</description>
 	<packaging>jar</packaging>

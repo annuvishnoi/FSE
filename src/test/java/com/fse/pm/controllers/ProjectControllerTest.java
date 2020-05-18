@@ -68,7 +68,7 @@ public class ProjectControllerTest {
 
 		given(projectService.getAllProjects()).willReturn(projects);
 
-		mockMvc.perform(get("/api/projects").contentType(MediaType.APPLICATION_JSON)).andExpect(status().isOk())
+		mockMvc.perform(get("/fse-pm-app/api/projects").contentType(MediaType.APPLICATION_JSON)).andExpect(status().isOk())
 				.andExpect(jsonPath("$", hasSize(1)))
 				.andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON));
 	}
@@ -82,7 +82,7 @@ public class ProjectControllerTest {
 		given(projectService.getProjectByProjectId(20)).willReturn(project);
 
 		try {
-			mockMvc.perform(get("/api/projects/2000"));
+			mockMvc.perform(get("/fse-pm-app/api/projects/2000"));
 		} catch (Exception e) {
 
 		}
@@ -96,7 +96,7 @@ public class ProjectControllerTest {
 		project.setProjectId(Long.valueOf(20));
 
 		given(projectService.getProjectByProjectId(20)).willReturn(project);
-		ResultActions resultActions = mockMvc.perform(get("/api/projects/20"));
+		ResultActions resultActions = mockMvc.perform(get("/fse-pm-app/api/projects/20"));
 		MvcResult mvcResult = resultActions.andExpect(status().isOk())
 				.andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON)).andReturn();
 		String response = mvcResult.getResponse().getContentAsString();
@@ -114,7 +114,7 @@ public class ProjectControllerTest {
 		project.setProjectId(Long.valueOf(20));
 
 		given(projectService.getProjectByProjectId(20)).willReturn(project);
-		ResultActions resultActions = mockMvc.perform(get("/api/projects/null"));
+		ResultActions resultActions = mockMvc.perform(get("/fse-pm-app/api/projects/null"));
 		resultActions.andExpect(status().is(400));
 	}
 
@@ -126,7 +126,7 @@ public class ProjectControllerTest {
 		doNothing().when(projectService).addProject(project);
 		
 		mockMvc.perform( MockMvcRequestBuilders
-			      .post("/api/projects")
+			      .post("/fse-pm-app/api/projects")
 			      .content(asJsonString(project))
 			      .contentType(MediaType.APPLICATION_JSON)
 			      .accept(MediaType.APPLICATION_JSON))
@@ -141,7 +141,7 @@ public class ProjectControllerTest {
 		doNothing().when(projectService).updateProject(project);
 		
 		mockMvc.perform( MockMvcRequestBuilders
-			      .put("/api/projects")
+			      .put("/fse-pm-app/api/projects")
 			      .content(asJsonString(project))
 			      .contentType(MediaType.APPLICATION_JSON)
 			      .accept(MediaType.APPLICATION_JSON))
@@ -158,7 +158,7 @@ public class ProjectControllerTest {
         doNothing().when(projectService).deleteProject(project.getProjectId());
 
         mockMvc.perform(
-                delete("/api/projects/{projectId}", project.getProjectId()))
+                delete("/fse-pm-app/api/projects/{projectId}", project.getProjectId()))
                 .andExpect(status().isOk());
 
         verify(projectService, times(1)).deleteProject(project.getProjectId());

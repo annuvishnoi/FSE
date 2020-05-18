@@ -24,7 +24,7 @@ import com.fse.pm.services.TaskService;
 import com.fse.pm.services.UserService;
 
 @RestController
-@RequestMapping("/api")
+@RequestMapping("/fse-pm-app/api")
 @CrossOrigin(origins="http://localhost:4200")
 public class TaskController {
 	@Autowired

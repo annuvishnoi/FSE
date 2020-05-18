@@ -64,7 +64,7 @@ public class ParentTaskControllerTest {
 
 		given(parentTaskService.getAllParentTasks()).willReturn(parentTasks);
 
-		mockMvc.perform(get("/api/parentTasks").contentType(MediaType.APPLICATION_JSON)).andExpect(status().isOk())
+		mockMvc.perform(get("/fse-pm-app/api/parentTasks").contentType(MediaType.APPLICATION_JSON)).andExpect(status().isOk())
 				.andExpect(jsonPath("$", hasSize(1)))
 				.andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON));
 	}
@@ -78,7 +78,7 @@ public class ParentTaskControllerTest {
 		given(parentTaskService.getParentTaskByParentTaskId(20)).willReturn(parentTask);
 
 		try {
-			mockMvc.perform(get("/api/parentTasks/2000"));
+			mockMvc.perform(get("/fse-pm-app/api/parentTasks/2000"));
 		} catch (Exception e) {
 
 		}
@@ -92,7 +92,7 @@ public class ParentTaskControllerTest {
 		parentTask.setParentId(Long.valueOf(20));
 
 		given(parentTaskService.getParentTaskByParentTaskId(20)).willReturn(parentTask);
-		ResultActions resultActions = mockMvc.perform(get("/api/parentTasks/20"));
+		ResultActions resultActions = mockMvc.perform(get("/fse-pm-app/api/parentTasks/20"));
 		MvcResult mvcResult = resultActions.andExpect(status().isOk())
 				.andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON)).andReturn();
 		String response = mvcResult.getResponse().getContentAsString();
@@ -110,7 +110,7 @@ public class ParentTaskControllerTest {
 		parentTask.setParentId(Long.valueOf(20));
 
 		given(parentTaskService.getParentTaskByParentTaskId(20)).willReturn(parentTask);
-		ResultActions resultActions = mockMvc.perform(get("/api/parentTasks/null"));
+		ResultActions resultActions = mockMvc.perform(get("/fse-pm-app/api/parentTasks/null"));
 		resultActions.andExpect(status().is(400));
 	}
 
@@ -122,7 +122,7 @@ public class ParentTaskControllerTest {
 		doNothing().when(parentTaskService).addParentTask(parentTask);
 		
 		mockMvc.perform( MockMvcRequestBuilders
-			      .post("/api/parentTasks")
+			      .post("/fse-pm-app/api/parentTasks")
 			      .content(asJsonString(parentTask))
 			      .contentType(MediaType.APPLICATION_JSON)
 			      .accept(MediaType.APPLICATION_JSON))

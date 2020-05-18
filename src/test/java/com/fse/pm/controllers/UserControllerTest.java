@@ -64,7 +64,7 @@ public class UserControllerTest {
 
 		given(userService.getAllUsers()).willReturn(users);
 
-		mockMvc.perform(get("/api/users").contentType(MediaType.APPLICATION_JSON)).andExpect(status().isOk())
+		mockMvc.perform(get("/fse-pm-app/api/users").contentType(MediaType.APPLICATION_JSON)).andExpect(status().isOk())
 				.andExpect(jsonPath("$", hasSize(1)))
 				.andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON));
 	}
@@ -80,7 +80,7 @@ public class UserControllerTest {
 		given(userService.getUserByUserId(2)).willReturn(user);
 
 		try {
-			mockMvc.perform(get("/api/users/20"));
+			mockMvc.perform(get("/fse-pm-app/api/users/20"));
 		} catch (Exception e) {
 
 		}
@@ -96,7 +96,7 @@ public class UserControllerTest {
 		user.setUserId(Long.valueOf(2));
 
 		given(userService.getUserByUserId(2)).willReturn(user);
-		ResultActions resultActions = mockMvc.perform(get("/api/users/2"));
+		ResultActions resultActions = mockMvc.perform(get("/fse-pm-app/api/users/2"));
 		MvcResult mvcResult = resultActions.andExpect(status().isOk())
 				.andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON)).andReturn();
 		String response = mvcResult.getResponse().getContentAsString();
@@ -116,7 +116,7 @@ public class UserControllerTest {
 		user.setUserId(Long.valueOf(2));
 
 		given(userService.getUserByUserId(2)).willReturn(user);
-		ResultActions resultActions = mockMvc.perform(get("/api/users/null"));
+		ResultActions resultActions = mockMvc.perform(get("/fse-pm-app/api/users/null"));
 		resultActions.andExpect(status().is(400));
 	}
 
@@ -133,7 +133,7 @@ public class UserControllerTest {
 		given(userService.getUserByEmployeeId(user.getEmployeeId())).willReturn(null);
 		
 		mockMvc.perform( MockMvcRequestBuilders
-			      .post("/api/users")
+			      .post("/fse-pm-app/api/users")
 			      .content(asJsonString(user))
 			      .contentType(MediaType.APPLICATION_JSON)
 			      .accept(MediaType.APPLICATION_JSON))
@@ -150,7 +150,7 @@ public class UserControllerTest {
 		doNothing().when(userService).updateUser(user);
 		
 		mockMvc.perform( MockMvcRequestBuilders
-			      .put("/api/users")
+			      .put("/fse-pm-app/api/users")
 			      .content(asJsonString(user))
 			      .contentType(MediaType.APPLICATION_JSON)
 			      .accept(MediaType.APPLICATION_JSON))
@@ -169,7 +169,7 @@ public class UserControllerTest {
         doNothing().when(userService).deleteUser(user.getUserId());
 
         mockMvc.perform(
-                delete("/api/users/{userId}", user.getUserId()))
+                delete("/fse-pm-app/api/users/{userId}", user.getUserId()))
                 .andExpect(status().isOk());
 
         verify(userService, times(1)).deleteUser(user.getUserId());

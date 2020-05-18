@@ -69,7 +69,7 @@ public class TaskControllerTest {
 
 		given(taskService.getAllTasks()).willReturn(tasks);
 
-		mockMvc.perform(get("/api/tasks").contentType(MediaType.APPLICATION_JSON)).andExpect(status().isOk())
+		mockMvc.perform(get("/fse-pm-app/api/tasks").contentType(MediaType.APPLICATION_JSON)).andExpect(status().isOk())
 				.andExpect(jsonPath("$", hasSize(1)))
 				.andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON));
 	}
@@ -83,7 +83,7 @@ public class TaskControllerTest {
 		given(taskService.getTaskByTaskId(20)).willReturn(task);
 
 		try {
-			mockMvc.perform(get("/api/tasks/2000"));
+			mockMvc.perform(get("/fse-pm-app/api/tasks/2000"));
 		} catch (Exception e) {
 
 		}
@@ -97,7 +97,7 @@ public class TaskControllerTest {
 		task.setTaskId(Long.valueOf(20));
 
 		given(taskService.getTaskByTaskId(20)).willReturn(task);
-		ResultActions resultActions = mockMvc.perform(get("/api/tasks/20"));
+		ResultActions resultActions = mockMvc.perform(get("/fse-pm-app/api/tasks/20"));
 		MvcResult mvcResult = resultActions.andExpect(status().isOk())
 				.andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON)).andReturn();
 		String response = mvcResult.getResponse().getContentAsString();
@@ -115,7 +115,7 @@ public class TaskControllerTest {
 		task.setTaskId(Long.valueOf(20));
 
 		given(taskService.getTaskByTaskId(20)).willReturn(task);
-		ResultActions resultActions = mockMvc.perform(get("/api/tasks/null"));
+		ResultActions resultActions = mockMvc.perform(get("/fse-pm-app/api/tasks/null"));
 		resultActions.andExpect(status().is(400));
 	}
 
@@ -134,7 +134,7 @@ public class TaskControllerTest {
 		doNothing().when(taskService).addTask(task);
 		
 		mockMvc.perform( MockMvcRequestBuilders
-			      .post("/api/tasks")
+			      .post("/fse-pm-app/api/tasks")
 			      .content(asJsonString(task))
 			      .contentType(MediaType.APPLICATION_JSON)
 			      .accept(MediaType.APPLICATION_JSON))
@@ -149,7 +149,7 @@ public class TaskControllerTest {
 		doNothing().when(taskService).updateTask(task);
 		
 		mockMvc.perform( MockMvcRequestBuilders
-			      .put("/api/tasks")
+			      .put("/fse-pm-app/api/tasks")
 			      .content(asJsonString(task))
 			      .contentType(MediaType.APPLICATION_JSON)
 			      .accept(MediaType.APPLICATION_JSON))
@@ -166,7 +166,7 @@ public class TaskControllerTest {
         doNothing().when(taskService).deleteTask(task.getTaskId());
 
         mockMvc.perform(
-                delete("/api/tasks/{taskId}", task.getTaskId()))
+                delete("/fse-pm-app/api/tasks/{taskId}", task.getTaskId()))
                 .andExpect(status().isOk());
 
         verify(taskService, times(1)).deleteTask(task.getTaskId());

@@ -1,0 +1,30 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  labels:
+    io.kompose.service: fse-pm-app
+  name: fse-pm-app
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        io.kompose.service: fse-pm-app
+    spec:
+      containers:
+      - env:
+        - name: RDS_DB_NAME
+          value: todos
+        - name: RDS_HOSTNAME
+          value: mysql
+        - name: RDS_PASSWORD
+          value: dummytodos
+        - name: RDS_PORT
+          value: "3306"
+        - name: RDS_USERNAME
+          value: todos-user
+        image: fsedocker/fse-pm-app:3
+        name: fse-pm-app
+        ports:
+        - containerPort: 8080
+      restartPolicy: Always

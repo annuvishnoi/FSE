@@ -21,7 +21,7 @@ import com.fse.pm.exceptions.NotFoundException;
 import com.fse.pm.services.UserService;
 
 @RestController
-@RequestMapping("/api")
+@RequestMapping("/fse-pm-app/api")
 @CrossOrigin(origins="http://localhost:4200")
 public class UserController {
 	@Autowired

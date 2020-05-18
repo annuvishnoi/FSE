@@ -20,7 +20,7 @@ import com.fse.pm.exceptions.NotFoundException;
 import com.fse.pm.services.ParentTaskService;
 
 @RestController
-@RequestMapping("/api")
+@RequestMapping("/fse-pm-app/api")
 @CrossOrigin(origins="http://localhost:4200")
 public class ParentTaskController {
 	@Autowired
