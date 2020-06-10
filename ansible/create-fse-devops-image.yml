@@ -1,0 +1,19 @@
+---
+- hosts: ansible-server
+ # become: true
+
+  tasks:
+  - name: create docker image using war file
+    command: docker build -t fse-pm-app:latest .
+    args:
+      chdir: /opt/k8s-lab-fse
+
+  - name: create tag to image
+    command: docker tag fse-pm-app fsedocker/fse-pm-app
+
+  - name: push image on to dockerhub
+    command: docker push fsedocker/fse-pm-app
+
+  - name: remove docker images form ansible server
+    command: docker rmi fse-pm-app:latest fsedocker/fse-pm-app
+    ignore_errors: yes

@@ -1,0 +1,14 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: fse-service
+  labels:
+    app: fse-pm-app
+spec:
+  selector:
+    app: fse-pm-app
+  type: LoadBalancer
+  ports:
+    - port: 8080
+      targetPort: 8080
+      nodePort: 31200

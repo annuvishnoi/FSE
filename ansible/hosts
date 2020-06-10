@@ -1,0 +1,6 @@
+[ansible-server]
+localhost
+
+[kubernetes]
+#management server ip
+54.83.100.164

@@ -1,0 +1,15 @@
+---
+- name: Create pods using deployment
+  hosts: kubernetes
+  become: true
+  user: root
+
+  tasks:
+  - name: create mysql volume
+    command: kubectl apply -f mysql-database-data-volume-persistentvolumeclaim.yaml
+
+  - name: update mysql deployment
+    command: kubectl apply -f mysql-deployment.yaml
+
+  - name: create mysql service
+    command: kubectl apply -f mysql-service.yaml
