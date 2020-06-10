@@ -5,10 +5,10 @@ metadata:
     io.kompose.service: fse-pm-app
   name: fse-pm-app
 spec:
-  type: NodePort
+  type: LoadBalancer
   ports:
-  - name: "8080"
-    port: 8080
+  - port: 8080
     targetPort: 8080
+    nodePort: 31200
   selector:
     io.kompose.service: fse-pm-app
