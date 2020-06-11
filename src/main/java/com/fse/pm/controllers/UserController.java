@@ -30,11 +30,11 @@ public class UserController {
 
 	@GetMapping("/users")
 	public List<User> getUsers(){
-		logger.info("start getUsers method>>update>>>>>>");
+		logger.info("start getUsers method>>");
 		List<User> users = this.userService.getAllUsers();
 		if(users==null || users.isEmpty()) {
 			logger.info("User Records not Found!!!");
-			throw new NotFoundException("User Records not Found!!!");
+			throw new NotFoundException("User Records not Found!!!update>>>>>>");
 		}
 		logger.info("end getUsers method>>");
 		return users;
