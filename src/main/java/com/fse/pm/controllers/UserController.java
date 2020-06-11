@@ -34,7 +34,7 @@ public class UserController {
 		List<User> users = this.userService.getAllUsers();
 		if(users==null || users.isEmpty()) {
 			logger.info("User Records not Found!!!");
-			throw new NotFoundException("User Records not Found!!!update>>>>>>");
+			throw new NotFoundException("User Records not Found!!!update2>>>>>>");
 		}
 		logger.info("end getUsers method>>");
 		return users;
