@@ -6,10 +6,10 @@
 
   tasks:
   - name: create mysql volume
-    command: kubectl apply -f mysql-database-data-volume-persistentvolumeclaim.yaml
+    command: kubectl apply -f mysql-database-data-volume-persistentvolumeclaim.yml
 
   - name: update mysql deployment
-    command: kubectl apply -f mysql-deployment.yaml
+    command: kubectl apply -f mysql-deployment.yml
 
   - name: create mysql service
-    command: kubectl apply -f mysql-service.yaml
+    command: kubectl apply -f mysql-service.yml

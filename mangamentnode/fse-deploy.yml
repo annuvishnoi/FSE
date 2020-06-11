@@ -19,6 +19,17 @@ spec:
         app: fse-pm-app
     spec:
       containers:
+      - env:
+        - name: RDS_DB_NAME
+          value: todos
+        - name: RDS_HOSTNAME
+          value: mysql
+        - name: RDS_PASSWORD
+          value: dummytodos
+        - name: RDS_PORT
+          value: "3306"
+        - name: RDS_USERNAME
+          value: todos-user
       - name: fse-pm-app
         image: fsedocker/fse-pm-app
         imagePullPolicy: Always
